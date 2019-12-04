@@ -11,7 +11,7 @@ import pickle
 
 
 # UGRHI SP
-# tagname = '58220000'
+tagname = '58220000'
 # -------------------------
 # tagname = '3D-001'
 # -------------------------
@@ -19,20 +19,21 @@ import pickle
 # -------------------------
 # tagname = '4B-015'
 # -------------------------
-tagname = '5B-011'
+# tagname = '5B-011'
 
-# dirInput = '/dados/ProcessoOtimizacaoModelos/' \
-#     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+dirInput = '/dados/ProcessoOtimizacaoModelos/' \
+    'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 # dirInput = '/media/hd2TB/lcbiag/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 # dirInput = '/vol0/evandro/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
-dirInput = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
-    'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+# dirInput = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
+#     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 
-pngfigplot = '/home/evandro/lcbiag/' \
-    'ProcessoOtimizacaoModelos/calibracaoBalagua/' \
-    'plots/'+tagname+'_pltTsBalagua.png'
+
+dirplot = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/plots/'
+
+pngfigplot = dirplot+tagname+'_pltTsBalagua.png'
 
 input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
 
@@ -232,13 +233,13 @@ gresult = gmodel.fit(hist_u, gparams, x=xhist)
 
 print(gresult.fit_report())
 
-
-
 xi = x_eixo[posval[0]]
 xf = x_eixo[posval[-1]]
 
 # Salva resultados para plots
-dirR = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/resultados/'
+#dirR = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/resultados/'
+dirR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+
 pickle.dump((out_leastsq,
              x_eixo, xi, xf,
              ts_mt,

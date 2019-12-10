@@ -9,11 +9,10 @@ import pickle
 # rcParams['font.family'] = 'sans-serif'
 # rcParams['font.sans-serif'] = ['Tahoma']
 
-
 # UGRHI SP
-tagname = '58220000'
+# tagname = '58220000'
 # -------------------------
-# tagname = '3D-001'
+tagname = '3D-001'
 # -------------------------
 # tagname = '4C-007'
 # -------------------------
@@ -30,16 +29,19 @@ dirInput = '/dados/ProcessoOtimizacaoModelos/' \
 # dirInput = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 
+dirR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+arqvminres = tagname+'_ugrhi_bruteMinimizerResult.pkl'
 
-dirplot = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/plots/'
 
-pngfigplot = dirplot+tagname+'_pltTsBalagua.png'
+
+# dirplot = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/plots/'
+# pngfigplot = dirplot+tagname+'_pltTsBalagua.png'
 
 input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
 
-etp = input_df.etp
-p2 = input_df.p
-q2 = input_df.q
+etp = np.asarray(input_df.etp)
+p2 = np.asarray(input_df.p)
+q2 = np.asarray(input_df.q)
 
 # IDL where
 posval = np.asarray(~np.isnan(etp) &
@@ -61,17 +63,12 @@ def residual(params, etp, p2, q2):
     m_func = len(etp)
     modeloerro = np.zeros(m_func, dtype='float64')
     #
-    # etp = np.float64(dadosobs['etp'])
-    # p2 = np.float64(dadosobs['p2'])
-    # q2 = np.float64(dadosobs['q2'])
-    # escb = np.float64(dadosobs['escb'])
-    #
     m1 = np.float64(500.)  # estimativa de m1 inicial
-    r2 = np.float64(0)
-    s2 = np.float64(0)
-    n2 = np.float64(0)
-    d2 = np.float64(0)
-    m2 = np.float64(0)
+    r2 = np.float64(0.)
+    s2 = np.float64(0.)
+    n2 = np.float64(0.)
+    d2 = np.float64(0.)
+    m2 = np.float64(0.)
     for kount in range(0, m_func):
         """
         Modelo de balanco de agua
@@ -92,23 +89,28 @@ def residual(params, etp, p2, q2):
         m2 = m1 + p2[kount] - r2 - d2
         modeloerro[kount] = np.sqrt(q2[kount]) - np.sqrt(d2)  # Wanderwiele
 
-        # modeloerro[kount] = np.sqrt((q2[kount] - d2)**2.)  # erro quad. med.
-        # modeloerro[kount] = q2[kount] - d2
-        # print(d2, s2, f2, m2)
-        # print(kount, m_func, q2[kount], etp[kount],  d2, modeloerro[kount])
-        # print(kount)
-        # time.sleep(1)
-
         m1 = m2
 
     return modeloerro
 
 
+outbrute = pickle.load(open(dirR +
+                            tagname+'_ugrhi_bruteMinimizerResult.pkl', "rb"))
+
+a1_bruteMR = outbrute.params['a1']
+a2_bruteMR = outbrute.params['a2']
+a22_bruteMR = outbrute.params['a22']
+a3_bruteMR = outbrute.params['a3']
+
+print(a1_bruteMR, a2_bruteMR, a22_bruteMR, a3_bruteMR,
+      '<-----Resultado MR brute')
+
+# Leastsq com resultado da grade de parametros - metodo bruto
 params = Parameters()
-params.add('a1', value=0.7, min=0., max=1.)
-params.add('a2', value=0.9)
-params.add('a22', value=0.5, vary=False)
-params.add('a3', value=1.967e-04)
+params.add('a1', value=a1_bruteMR, min=0., max=1.)
+params.add('a2', value=a2_bruteMR)
+params.add('a22', value=a22_bruteMR, vary=False)
+params.add('a3', value=a3_bruteMR)
 
 otimiza = Minimizer(residual, params,
                     reduce_fcn=None,
@@ -131,38 +133,31 @@ a3 = out_leastsq.params['a3']
 
 input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
 
-etp = input_df.etp
-p2 = input_df.p
-q2 = input_df.q
+etp = np.asarray(input_df.etp)
+p2 = np.asarray(input_df.p)
+q2 = np.asarray(input_df.q)
 
 datatempo = input_df.index
 
 nxts = len(input_df)
-# modeloerro = np.zeros(nxts, dtype='float64')
-#
-ts_mt = np.zeros(nxts, dtype='float64')  # np.empty(nxts)
-ts_dt = np.zeros(nxts, dtype='float64')
-ts_u = np.zeros(nxts, dtype='float64')
-ts_Dm = np.zeros(nxts, dtype='float64')
-ts_r = np.zeros(nxts, dtype='float64')
+
+ts_mt = np.empty(nxts)  # np.zeros(nxts, dtype='float64')  # np.empty(nxts)
+ts_dt = np.empty(nxts)  # np.zeros(nxts, dtype='float64')
+ts_u = np.empty(nxts)  # np.zeros(nxts, dtype='float64')
+ts_Dm = np.empty(nxts)  # np.zeros(nxts, dtype='float64')
+ts_r = np.empty(nxts)  # np.zeros(nxts, dtype='float64')
 ts_mt.fill(np.nan)
 ts_dt.fill(np.nan)
 ts_u.fill(np.nan)
 ts_Dm.fill(np.nan)
 ts_r.fill(np.nan)
 
-#
-# etp = np.float64(dadosobs['etp'])
-# p2 = np.float64(dadosobs['p2'])
-# q2 = np.float64(dadosobs['q2'])
-# escb = np.float64(dadosobs['escb'])
-#
-m1 = 500.
-r2 = np.float64(0)
-s2 = np.float64(0)
-n2 = np.float64(0)
-d2 = np.float64(0)
-m2 = np.float64(0)
+m1 = np.float64(500.)
+r2 = np.float64(0.)
+s2 = np.float64(0.)
+n2 = np.float64(0.)
+d2 = np.float64(0.)
+m2 = np.float64(0.)
 
 m_func = len(posval)
 for kount in range(0, m_func):
@@ -195,17 +190,11 @@ for kount in range(0, m_func):
     m1 = m2
     # print(s2)
 
-print('---------------> ', np.average(ts_mt))
-print('Media u---------------> ', np.average(ts_u))
-
-
-
-
-
-
+print('Media S---------------> ', np.nanmean(ts_mt))
+print('Media u---------------> ', np.nanmean(ts_u))
 
 '''
-Graficos
+Saidas
 '''
 
 x_eixo = datatempo
@@ -233,15 +222,15 @@ gresult = gmodel.fit(hist_u, gparams, x=xhist)
 
 print(gresult.fit_report())
 
-xi = x_eixo[posval[0]]
-xf = x_eixo[posval[-1]]
+# xi = x_eixo[posval[0]]
+# xf = x_eixo[posval[-1]]
 
 # Salva resultados para plots
-#dirR = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/resultados/'
+# dirR = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/resultados/'
 dirR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
 
 pickle.dump((out_leastsq,
-             x_eixo, xi, xf,
+             x_eixo,
              ts_mt,
              ts_dt,
              ts_u,

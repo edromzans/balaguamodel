@@ -10,13 +10,13 @@ from gradeparamsbrute import plot_results_brute
 # UGRHI SP ##
 # tagname = '58220000'
 # -------------------------
-tagname = '3D-001'
+# tagname = '3D-001'
 # -------------------------
 # tagname = '4C-007'
 # -------------------------
 # tagname = '4B-015'
 # -------------------------
-# tagname = '5B-011'             
+tagname = '5B-011'
 # -------------------------
 ############
 

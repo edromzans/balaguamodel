@@ -96,12 +96,17 @@ def residual(params, etp, p2, q2):
 """
 Processo de otimizacao de parametros
 """
+# params = Parameters()
+# params.add('a1', min=0.0, max=1, brute_step=0.03333)
+# params.add('a2', min=0.0, max=3, brute_step=0.02)
+# params.add('a22', min=0.5, max=2.0, brute_step=0.5)
+# params.add('a3', min=0.5e-04, max=6e-04, brute_step=1.83333e-05)
 
 params = Parameters()
-params.add('a1', min=0.0, max=1, brute_step=0.03333)
-params.add('a2', min=0.0, max=3, brute_step=0.02)
+params.add('a1', min=0., max=1., brute_step=0.02)
+params.add('a2', min=0.0, max=1.8, brute_step=0.018)
 params.add('a22', min=0.5, max=2.0, brute_step=0.5)
-params.add('a3', min=0.5e-04, max=6e-04, brute_step=1.83333e-05)
+params.add('a3', min=1e-04, max=10e-04, brute_step=1.8e-05)
 
 
 """

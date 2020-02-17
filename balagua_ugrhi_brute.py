@@ -9,7 +9,9 @@ import time
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 # dirInput = '/media/hd2TB/lcbiag/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
-dirInput = '/vol0/evandro/ProcessoOtimizacaoModelos/' \
+# dirInput = '/vol0/evandro/ProcessoOtimizacaoModelos/' \
+#     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 
 # UGRHI SP
@@ -24,7 +26,11 @@ dirInput = '/vol0/evandro/ProcessoOtimizacaoModelos/' \
 tagname = '5B-011'
 # -------------------------
 
-input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
+# CRU
+# input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
+# Xavier
+input_df = pd.read_pickle(dirInput+tagname+'_xavier_ugrhi_sp.pkl')
+
 
 etp = input_df.etp
 p2 = input_df.p
@@ -136,7 +142,9 @@ otimiza = Minimizer(residual, params,
 out = otimiza.brute(workers=50)
 
 dirMR = '/vol0/evandro/resultados/'
-pickle.dump(out, open(dirMR+tagname+'_ugrhi_bruteMinimizerResult.pkl', 'wb'))
+pickle.dump(out,
+            open(dirMR+tagname+'_xavier_ugrhi_bruteMinimizerResult.pkl',
+                 'wb'))
 
 # report_fit(out.params)
 report_fit(out)

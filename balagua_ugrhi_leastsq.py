@@ -20,8 +20,12 @@ import pickle
 # -------------------------
 tagname = '5B-011'
 
-dirInput = '/dados/ProcessoOtimizacaoModelos/' \
+# dirInput = '/dados/ProcessoOtimizacaoModelos/' \
+#     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+
+dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+
 # dirInput = '/media/hd2TB/lcbiag/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 # dirInput = '/vol0/evandro/ProcessoOtimizacaoModelos/' \
@@ -29,15 +33,18 @@ dirInput = '/dados/ProcessoOtimizacaoModelos/' \
 # dirInput = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 
-dirR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
-arqvminres = tagname+'_ugrhi_bruteMinimizerResult.pkl'
+# Resultados
+# dirR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+dirR = '/vol0/evandro/lcbiag/' \
+    'ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
 
+# CRU
+# arqvminres = tagname+'_ugrhi_bruteMinimizerResult.pkl'
+# input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
 
-
-# dirplot = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/plots/'
-# pngfigplot = dirplot+tagname+'_pltTsBalagua.png'
-
-input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
+# Xavier
+arqvminres = tagname+'_xavier_ugrhi_bruteMinimizerResult.pkl'
+input_df = pd.read_pickle(dirInput+tagname+'_xavier_ugrhi_sp.pkl')
 
 etp = np.asarray(input_df.etp)
 p2 = np.asarray(input_df.p)
@@ -95,7 +102,7 @@ def residual(params, etp, p2, q2):
 
 
 outbrute = pickle.load(open(dirR +
-                            tagname+'_ugrhi_bruteMinimizerResult.pkl', "rb"))
+                            arqvminres, "rb"))
 
 a1_bruteMR = outbrute.params['a1']
 a2_bruteMR = outbrute.params['a2']
@@ -131,7 +138,9 @@ a2 = out_leastsq.params['a2']
 a22 = out_leastsq.params['a22']
 a3 = out_leastsq.params['a3']
 
-input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
+# input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
+# Xavier
+# input_df = pd.read_pickle(dirInput+tagname+'_xavier_ugrhi_sp.pkl')
 
 etp = np.asarray(input_df.etp)
 p2 = np.asarray(input_df.p)
@@ -222,12 +231,7 @@ gresult = gmodel.fit(hist_u, gparams, x=xhist)
 
 print(gresult.fit_report())
 
-# xi = x_eixo[posval[0]]
-# xf = x_eixo[posval[-1]]
-
 # Salva resultados para plots
-# dirR = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/resultados/'
-dirR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
 
 pickle.dump((out_leastsq,
              x_eixo,
@@ -242,4 +246,7 @@ pickle.dump((out_leastsq,
              xhist,
              hist_u,
              gresult),
-            open(dirR+tagname+'_ugrhi_leastsqMinimizerResult.pkl', 'wb'))
+            # open(dirR+tagname+'_ugrhi_leastsqMinimizerResult.pkl',
+            # 'wb'))
+            open(dirR+tagname+'_xavier_ugrhi_leastsqMinimizerResult.pkl',
+                 'wb'))

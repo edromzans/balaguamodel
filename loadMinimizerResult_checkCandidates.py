@@ -22,8 +22,37 @@ tagname = '5B-011'
 
 # diresults = '/vol0/evandro/resultados/'
 # diresults = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/resultados/'
-diresults = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
-arqvminres = tagname+'_ugrhi_bruteMinimizerResult.pkl'
+# diresults = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+
+diresults = '/vol0/evandro/lcbiag/' \
+    'ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
+    'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+
+# CRU
+# arqvminres = tagname+'_ugrhi_bruteMinimizerResult.pkl'
+# pngfigplot = '/vol0/evandro/lcbiag/' \
+#     'ProcessoOtimizacaoModelos/calibracaoBalagua/' \
+#     'plots/'+tagname+'_ugrhi_pltGridParams.png'
+# input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
+
+# Xavier
+arqvminres = tagname+'_xavier_ugrhi_bruteMinimizerResult.pkl'
+pngfigplot = '/vol0/evandro/lcbiag/' \
+    'ProcessoOtimizacaoModelos/calibracaoBalagua/' \
+    'plots/'+tagname+'_xavier_ugrhi_pltGridParams.png'
+input_df = pd.read_pickle(dirInput+tagname+'_xavier_ugrhi_sp.pkl')
+
+# pngfigplot = '/dados/ProcessoOtimizacaoModelos/' \
+#     'calibracaoBalagua/plots/plotaBruteParams.png'
+
+# pngfigplot = '/home/evandro/lcbiag/' \
+#     'ProcessoOtimizacaoModelos/calibracaoBalagua/' \
+#     'plots/'+tagname+'_pltGridParams.png'
+
+# pngfigplot = '/dados/' \
+#     'ProcessoOtimizacaoModelos/calibracaoBalagua/' \
+#     'plots/'+tagname+'_pltGridParams.png'
 
 out = pickle.load(open(diresults+arqvminres, "rb"))
 
@@ -35,11 +64,12 @@ Verificacao dos parametros candidatos caculados
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 # dirInput = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
-dirInput = '/dados/ProcessoOtimizacaoModelos/' \
-    'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+# dirInput = '/dados/ProcessoOtimizacaoModelos/' \
+#     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 
 
-input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
+
+
 etp = input_df.etp
 p2 = input_df.p
 q2 = input_df.q
@@ -120,17 +150,6 @@ report_fit(out)
 """
 Plota a grade de parametros
 """
-
-# pngfigplot = '/dados/ProcessoOtimizacaoModelos/' \
-#     'calibracaoBalagua/plots/plotaBruteParams.png'
-
-# pngfigplot = '/home/evandro/lcbiag/' \
-#     'ProcessoOtimizacaoModelos/calibracaoBalagua/' \
-#     'plots/'+tagname+'_pltGridParams.png'
-
-pngfigplot = '/dados/' \
-    'ProcessoOtimizacaoModelos/calibracaoBalagua/' \
-    'plots/'+tagname+'_pltGridParams.png'
 
 plot_results_brute(out, best_vals=True, varlabels=None,
                    output=pngfigplot)

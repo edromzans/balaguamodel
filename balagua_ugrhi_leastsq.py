@@ -16,16 +16,14 @@ import pickle
 # -------------------------
 # tagname = '4C-007'
 # -------------------------
-# tagname = '4B-015'
+tagname = '4B-015'
 # -------------------------
-tagname = '5B-011'
+# tagname = '5B-011'
 
-# dirInput = '/dados/ProcessoOtimizacaoModelos/' \
-#     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
-
-dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
+dirInput = '/dados/ProcessoOtimizacaoModelos/' \
     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
-
+# dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
+#     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 # dirInput = '/media/hd2TB/lcbiag/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 # dirInput = '/vol0/evandro/ProcessoOtimizacaoModelos/' \
@@ -34,9 +32,9 @@ dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
 #     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 
 # Resultados
-# dirR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
-dirR = '/vol0/evandro/lcbiag/' \
-    'ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+dirR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+# dirR = '/vol0/evandro/lcbiag/' \
+#     'ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
 
 # CRU
 # arqvminres = tagname+'_ugrhi_bruteMinimizerResult.pkl'

@@ -14,20 +14,23 @@ from gradeparamsbrute import plot_results_brute
 # -------------------------
 # tagname = '4C-007'
 # -------------------------
-# tagname = '4B-015'
+tagname = '4B-015'
 # -------------------------
-tagname = '5B-011'
+# tagname = '5B-011'              
 # -------------------------
 ############
 
 # diresults = '/vol0/evandro/resultados/'
 # diresults = '/home/evandro/lcbiag/ProcessoOtimizacaoModelos/resultados/'
-# diresults = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+diresults = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+# diresults = '/vol0/evandro/lcbiag/' \
+#     'ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
 
-diresults = '/vol0/evandro/lcbiag/' \
-    'ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
-dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
+# dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
+#     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+dirInput = '/dados/ProcessoOtimizacaoModelos/' \
     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
+
 
 # CRU
 # arqvminres = tagname+'_ugrhi_bruteMinimizerResult.pkl'
@@ -38,7 +41,7 @@ dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
 
 # Xavier
 arqvminres = tagname+'_xavier_ugrhi_bruteMinimizerResult.pkl'
-pngfigplot = '/vol0/evandro/lcbiag/' \
+pngfigplot = '/dados/' \
     'ProcessoOtimizacaoModelos/calibracaoBalagua/' \
     'plots/'+tagname+'_xavier_ugrhi_pltGridParams.png'
 input_df = pd.read_pickle(dirInput+tagname+'_xavier_ugrhi_sp.pkl')

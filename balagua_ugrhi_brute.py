@@ -14,6 +14,9 @@ import time
 dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
     'calibracaoBalagua/dados/inputs/ugrhi_sp/'
 
+dirMR = '/vol0/evandro/resultados/'
+# dirMR = '/dados/ProcessoOtimizacaoModelos/calibracaoBalagua/resultados/'
+
 # UGRHI SP
 # tagname = '58220000'
 # -------------------------
@@ -21,16 +24,15 @@ dirInput = '/vol0/evandro/lcbiag/ProcessoOtimizacaoModelos/' \
 # -------------------------
 # tagname = '4C-007'
 # -------------------------
-# tagname = '4B-015'
+tagname = '4B-015'
 # -------------------------
-tagname = '5B-011'
+# tagname = '5B-011'
 # -------------------------
 
 # CRU
 # input_df = pd.read_pickle(dirInput+tagname+'_ugrhi_sp.pkl')
 # Xavier
 input_df = pd.read_pickle(dirInput+tagname+'_xavier_ugrhi_sp.pkl')
-
 
 etp = input_df.etp
 p2 = input_df.p
@@ -139,9 +141,8 @@ otimiza = Minimizer(residual, params,
                     calc_covar=True,
                     fcn_args=(etp, p2, q2))
 
-out = otimiza.brute(workers=50)
+out = otimiza.brute(workers=45)
 
-dirMR = '/vol0/evandro/resultados/'
 pickle.dump(out,
             open(dirMR+tagname+'_xavier_ugrhi_bruteMinimizerResult.pkl',
                  'wb'))
